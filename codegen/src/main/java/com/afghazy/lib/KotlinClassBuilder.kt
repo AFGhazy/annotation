@@ -10,13 +10,14 @@ package com.afghazy.lib
 class KotlinClassBuilder(
     className: String,
     packageName: String,
-    greeting: String = "Merry Christmas!!"
+    name: String,
+    greeting: String
 ) {
     private val contentTemplate = """
         package $packageName
         
         class $className {
-            fun greeting() = "$greeting"
+            fun greeting() = "$greeting $name"
         }
     """.trimIndent()
 

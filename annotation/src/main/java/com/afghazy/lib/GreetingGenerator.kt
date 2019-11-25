@@ -1,5 +1,7 @@
 package com.afghazy.lib
 
+import javax.annotation.processing.SupportedOptions
+
 
 /**
  * Created by Ahmed Fathy Ghazy on 11/25/19
@@ -10,4 +12,4 @@ package com.afghazy.lib
 @Target(AnnotationTarget.CLASS)
 @Retention(AnnotationRetention.SOURCE)
 @MustBeDocumented
-annotation class GreetingGenerator
+annotation class GreetingGenerator(val name: String, val greeting: String)

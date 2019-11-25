@@ -8,7 +8,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MainActivity : AppCompatActivity() {
 
 
-    @GreetingGenerator()
+    @GreetingGenerator(name = "G", greeting = "Hello, ")
     class Santa
 
     override fun onCreate(savedInstanceState: Bundle?) {

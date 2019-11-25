@@ -6,6 +6,7 @@ import java.lang.Error
 import javax.annotation.processing.*
 import javax.lang.model.SourceVersion
 import javax.lang.model.element.TypeElement
+import javax.lang.model.util.ElementFilter
 import javax.tools.Diagnostic
 
 
@@ -34,16 +35,15 @@ class FileGenerator : AbstractProcessor() {
         this?.forEach {
             val className = it.simpleName.toString()
             val pack = processingEnv.elementUtils.getPackageOf(it).toString()
-            processingEnv.messager.printMessage(Diagnostic.Kind.WARNING, "$className $pack")
 
-            generateClass(className, pack)
+            generateClass(className, pack, it.getAnnotation(GreetingGenerator::class.java).name, it.getAnnotation(GreetingGenerator::class.java).greeting)
         }
         true
     }
 
-    private fun generateClass(className: String, pack: String) {
+    private fun generateClass(className: String, pack: String, name: String = "Hello", greeting: String = "Hello") {
         val fileName = "Generated_$className"
-        val fileContent = KotlinClassBuilder(fileName, pack).getContent()
+        val fileContent = KotlinClassBuilder(fileName, pack, name, greeting).getContent()
         val kaptKotlinGeneratedDir = processingEnv.options[KAPT_KOTLIN_GENERATED_OPTION_NAME]
         val file = File(kaptKotlinGeneratedDir, "$fileName.kt")
         processingEnv.messager.printMessage(Diagnostic.Kind.WARNING, "${file.name}")
